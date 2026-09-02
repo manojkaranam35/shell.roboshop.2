@@ -6,7 +6,7 @@ R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
-LOGS_FOLDER="var/log/roboshop-logs"
+LOGS_FOLDER="/var/log/roboshop-logs"
 SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
 LOG_FILE=$LOGS_FOLDER/$SCRIPT_NAME.log
 SCRIPT_DIR=$PWD
@@ -15,7 +15,7 @@ mkdir -p $LOGS_FOLDER
 echo "script started executed at: $(date)" | tee -a $LOG_FILE
 
 check_root(){
-if [ $userid -ne 0 ]
+if [ $USERID -ne 0 ]
 then
  echo -e "$R error please run the script with root user $N" | tee -a $LOG_FILE
  exit 1
@@ -83,6 +83,7 @@ systemd_setup(){
     systemctl enable $app_name  &>>$LOG_FILE
     systemctl start $app_name
     VALIDATE $? "Starting $app_name"
+}
 
 maven_setup(){
     dnf install maven -y &>>$LOG_FILE
