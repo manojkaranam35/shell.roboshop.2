@@ -15,7 +15,7 @@ mkdir -p $LOGS_FOLDER
 echo "script started executed at: $(date)" | tee -a $LOG_FILE
 
 check_root(){
-if [ $userid -ne 0]
+if [ $userid -ne 0 ]
 then
  echo -e "$R error please run the script with root user $N" | tee -a $LOG_FILE
  exit 1
@@ -25,7 +25,7 @@ fi
 }
 
 VALIDATE(){
- if [ $1 -eq 0]
+ if [ $1 -eq 0 ]
  then
   echo -e " $? is $G success $N" | tee -a $LOG_FILE
  else
@@ -36,7 +36,7 @@ fi
 print_time(){
     END_TIME=$(date +%s)
     TOTAL_TIME=$(($END_TIME - $START_TIME))
-    echo " script executed successfully, $Y $TOTAL_TIME seconds $N"
+    echo -e " script executed successfully, $Y $TOTAL_TIME seconds $N"
 }
 
 nodejs_setup(){
@@ -104,5 +104,4 @@ python_setup(){
 
     cp $SCRIPT_DIR/payment.service /etc/systemd/system/payment.service &>>$LOG_FILE
     VALIDATE $? "Copying payment service"
-
 }
