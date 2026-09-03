@@ -8,9 +8,11 @@ app_setup
 nodejs_setup
 systemd_setup
 
-cp $SCRIPT_DIR/mongo.repo /etc/yum.repos.d/mongo.repo
-dnf install mongodb-mongosh -y &>> $LOG_FILE
-VALIDATE $? "installing mongosh"
+cp $SCRIPT_DIR/mongo.repo /etc/yum.repos.d/mongo.repo 
+VALIDATE $? "copying mongod"
+
+dnf install mongodb-mongosh -y &>>$LOG_FILE
+VALIDATE $? "Installing MongoDB Client"
 
 STATUS=$(mongosh --host mongodb.karanam.site --eval 'db.getMongo().getDBNames().indexOf("catalogue")')
 if [ $STATUS -lt 0 ]
@@ -20,5 +22,4 @@ then
 else
     echo -e "Data is already loaded ... $Y SKIPPING $N"
 fi
-
 print_time
